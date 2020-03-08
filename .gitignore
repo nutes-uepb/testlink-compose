@@ -1,0 +1,21 @@
+# IntelliJ
+.idea                
+out/
+.DS_Store
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Environment variables file
+.env
+
+# Certificates and keys directories
+.certs
+*.pem
+*.crt
+*.key
+*.csr
+certs

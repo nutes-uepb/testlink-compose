@@ -1,0 +1,56 @@
+version: '3.7'
+
+services:
+  mariadb:
+    image: bitnami/mariadb
+    container_name: mariadb_testlink
+    restart: always
+    environment:
+      - MARIADB_DATABASE=${DATABASE_NAME}
+      - MARIADB_USER=${DATABASE_USER}
+      - MARIADB_PASSWORD=${DATABASE_PASS}
+      - MARIADB_ROOT_PASSWORD=${DATABASE_ROOT_PASS}
+    ports:
+      - 3306:3306
+    networks:
+      - testlink-network
+    volumes:
+      - mariadb_testlink_data:/bitnami
+
+  testlink:
+    image: bitnami/testlink
+    container_name: testlink
+    restart: always
+    ports:
+      - ${PORT_HTTP:-80}:80
+    networks:
+      - testlink-network
+    volumes:
+      - testlink_data:/bitnami
+    depends_on:
+      - mariadb
+    environment:
+      - TESTLINK_DATABASE_NAME=${DATABASE_NAME}
+      - TESTLINK_DATABASE_USER=${DATABASE_USER}
+      - TESTLINK_DATABASE_PASSWORD=${DATABASE_PASS}
+      - TESTLINK_USERNAME=${TESTLINK_USERNAME}
+      - TESTLINK_PASSWORD=${TESTLINK_PASSWORD}
+      - TESTLINK_EMAIL=${TESTLINK_EMAIL}
+      - TESTLINK_LANGUAGE=pt_BR
+      - SMTP_ENABLE=${SMTP_ENABLE:-false}
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - SMTP_CONNECTION_MODE=${SMTP_CONNECTION_MODE}
+
+volumes:
+  mariadb_testlink_data:
+    name: ocariot-mongo-account
+  testlink_data:
+    name: ocariot-mongo-account
+
+networks:
+  testlink-network:
+    name: testlink-network
+    driver: bridge
