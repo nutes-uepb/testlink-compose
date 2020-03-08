@@ -44,9 +44,9 @@ services:
 
 volumes:
   mariadb_testlink_data:
-    name: ocariot-mongo-account
+    name: mariadb_testlink_data
   testlink_data:
-    name: ocariot-mongo-account
+    name: testlink_data
 
 networks:
   testlink-network:
