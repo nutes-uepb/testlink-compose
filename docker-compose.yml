@@ -10,8 +10,6 @@ services:
       - MARIADB_USER=${DATABASE_USER}
       - MARIADB_PASSWORD=${DATABASE_PASS}
       - MARIADB_ROOT_PASSWORD=${DATABASE_ROOT_PASS}
-    ports:
-      - 3306:3306
     networks:
       - testlink-network
     volumes:
